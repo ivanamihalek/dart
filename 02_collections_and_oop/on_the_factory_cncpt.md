@@ -360,6 +360,142 @@ Sometimes it’s:
 
 And Dart wants you to explicitly admit when you’re doing that.
 
-Annoying? Slightly.
-Clear and safe? Also yes.
 
+# "Renaming" `factory`
+If you had the freedom to rename the keyword `factory` in dart, what would you call it to make its purpose more transparent?
+You’re basically asking: if we could rename `factory` so it actually says what it does instead of sounding like a 1998 design-pattern seminar, what would it be?
+
+Good. Because “factory” is vague. It suggests “object production facility,” not “this constructor might lie to you.”
+
+If I had freedom, I’d rename it based on what it *actually guarantees*.
+
+---
+
+## 1) `redirecting`
+
+This would be brutally honest.
+
+```dart
+redirecting Shape(String type) { ... }
+```
+
+It tells you:
+
+> This constructor might redirect somewhere else.
+
+Which is true in most interesting cases:
+
+* return a subtype
+* return a cached instance
+* forward to a private constructor
+
+It highlights the *delegation* aspect, not the “manufacturing” vibe.
+
+---
+
+## 2) `virtual`
+
+This would emphasize polymorphism.
+
+Normal constructors are concrete.
+Factory constructors are… virtual entry points.
+
+```dart
+virtual Shape(String type) { ... }
+```
+
+It communicates:
+
+> The actual runtime type may differ.
+
+That’s one of the core differences.
+
+---
+
+## 3) `provider`
+
+This leans into the “decides what to give you” semantics.
+
+```dart
+provider Logger() { ... }
+```
+
+It signals:
+
+> I provide an instance. I don’t promise to build one.
+
+Less sexy, more accurate.
+
+---
+
+## 4) `computed`
+
+This emphasizes that the constructor runs logic first.
+
+```dart
+computed User(String name) { ... }
+```
+
+It suggests:
+
+> The instance is computed, not directly constructed.
+
+That’s conceptually cleaner than “factory.”
+
+---
+
+## 5) My actual pick: `deferred`
+
+Why?
+
+Because the key semantic difference in Dart is:
+
+* Generative constructor → object exists before body runs.
+* Factory constructor → object creation is deferred until you return something.
+
+```dart
+deferred Shape(String type) { ... }
+```
+
+It conveys:
+
+* No `this` yet
+* No object allocated yet
+* Construction happens later
+
+That’s mechanically precise.
+
+---
+
+# Why `factory` stuck
+
+Because:
+
+* The pattern was already known
+* It aligned with GoF terminology
+* It felt familiar to Java developers
+
+But it hides the important semantic distinction:
+
+It’s not about “making objects.”
+Every constructor makes objects.
+
+It’s about **deciding which object to return**.
+
+If the keyword were chosen today with null safety and strict initialization in mind, it might be named something closer to:
+
+> “This constructor does not guarantee a fresh instance of this class.”
+
+Which is not exactly catchy.
+
+---
+
+If I had to pick one single word for clarity over tradition:
+
+**`redirecting`**
+
+It’s ugly. It’s honest. It explains itself.
+
+And it would probably have prevented at least half the confusion people have about `factory`.
+
+Language design is compromise. And “factory” is the polite fiction Dart chose.

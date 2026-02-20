@@ -1,5 +1,18 @@
 # TLDR;
 
+# 0. The initialization order in dart
+Dart constructors follow a strict initialization sequence,
+which ensures fields are set before the constructor body runs (or before the object is considered fully constructed):
+
+1. Object allocation: Memory for the new instance is allocated. At this point, this refers to the partially constructed object (fields are uninitialized). 
+2. Implicit/explicit super constructor: If omitted, Dart calls the superclass's no-arg constructor (here, Object()). 
+3. Initializer list execution (left-to-right):
+   * Assignments like `this.brand = brand` or `year = 2018` run here. 
+   * `this` explicitly refers to the current instance being constructed (even though the body hasn't run yet). 
+   * Field names without `this.` (e.g., `year = 2018`) implicitly mean `this.year = 2018`. 
+4. Constructor body: Executes after the list (empty here with just ;).
+
+
 # 1. Object initialization in Dart is strict on purpose
 
 With sound null safety:

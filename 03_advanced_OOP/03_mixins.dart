@@ -36,18 +36,19 @@ class Duck extends Animal with Flyable, Swimmer {
     print('Quack quack while flying!');
   }
 }
-
-class Fly with Flyable, Swimmer {
-
-  String name;
-  Fly(this.name);
-
-  @override
-  void fly() {
-    super.fly(); // Call parent mixin
-    print('Buzz buzz while flying!');
-  }
-}
+// this qill not work because Flyable
+// can be a mixin only on something that extends Animale
+// class Fly with Flyable, Swimmer {
+//
+//   String name;
+//   Fly(this.name);
+//
+//   @override
+//   void fly() {
+//     super.fly(); // Call parent mixin
+//     print('Buzz buzz while flying!');
+//   }
+// }
 
 
 // drone suse multiple mixins too
@@ -68,8 +69,8 @@ void main() {
 
   var drone = Drone('big fat one');
   drone.fly();
-
-  var fly = Fly('zunzara');
-  fly.fly();
-  fly.swim();
+  //
+  // var fly = Fly('zunzara');
+  // fly.fly();
+  // fly.swim();
 }

@@ -8,7 +8,8 @@ int summa(int a, [int? b=5]) {
   return retval;
 }
 
-int summb(int a, {int? b=5}) {
+// required named argument cannot have a default value
+int summb(int a, {required int? b}) {
   var retval = b == null? a : a+b;
   return retval;
 }

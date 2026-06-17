@@ -1,6 +1,17 @@
-You’re building in a project literally named flutter / dart and now you’re asking what Flutter is. Bold. I respect the chaos.
+# Dart exercises
 
-Here’s the clean version.
+This repo follow, more or less, the official Dart / Flutter tutorials:
+
+https://docs.flutter.dev/learn/pathway
+
+## IDE
+
+While the official tutorial uses VS Code, my preferences is PyCharm + Dart plugin
+
+https://plugins.jetbrains.com/plugin/6351-dart
+
+# Dart and Flutter
+(Breakdown by  ChatGPT)
 
 ## Flutter
 
@@ -63,5 +74,3 @@ Dart checked those boxes. Also, Google controls both, which avoids the “three 
 | Your App | Dart code using Flutter widgets |
 
 You don’t use Flutter without Dart. You technically can use Dart without Flutter, but most people only remember Dart because Flutter made it relevant.
-
-Now go build something pretty. Or at least something that doesn’t crash on launch.
